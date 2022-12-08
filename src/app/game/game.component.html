@@ -8,6 +8,6 @@
     <!--Mit [ngStyle]="{'right.px': i*5}" bekommt jedes img sein eigenes Style right in px, es wäre möglich auch andere einheiten zunutzen-->
     <img (click)="takeCard()" class="top-card" style="right: 25px;" src="/assets/img/cards/card_cover.png" alt="">
     <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pick-card" style="right: 25px;"
-      src="/assets/img/cards/ace_1.png" alt="">
+      src="/assets/img/cards/{{ currentCard }}.png" alt="">
   </div>
 </div>

@@ -8,6 +8,7 @@ import { Game } from '../../models/game';
 })
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
+  currentCard: string = '';
   game: Game;
 
   ngOnInit() {
@@ -16,10 +17,16 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.game = new Game(); // die Variabel bekommt ein neues von dem, was wir angelegt haben.
-    console.log(this.game)
+    console.log(this.game);
   }
 
   takeCard() {
-    this.pickCardAnimation = true;
+    if (!this.pickCardAnimation) {
+      this.currentCard = this.game.stack.pop(); // Pop gibt uns den letzten Wert des Arrays entfernt und angezeigt
+      this.pickCardAnimation = true;
+      setTimeout(() => {
+        this.pickCardAnimation = false;
+      }, 1500);
+    }
   }
 }
