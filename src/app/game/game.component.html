@@ -1,13 +1,22 @@
 <div class="field">
 
   <div class="card-stack">
-
+    <!-- Card stack -->
     <img [ngStyle]="{'right.px': i*5}" *ngFor="let c of [0,1,2,3]; let i = index;"
       src="/assets/img/cards/card_cover.png" alt="">
     <!--Mit *ngFor="let c of [1,2,3,4,5]" wird dieses Bild 5mal dargestellt-->
     <!--Mit [ngStyle]="{'right.px': i*5}" bekommt jedes img sein eigenes Style right in px, es wäre möglich auch andere einheiten zunutzen-->
     <img (click)="takeCard()" class="top-card" style="right: 25px;" src="/assets/img/cards/card_cover.png" alt="">
+
+
+    <!-- Stack for played Cards -->
+    <img class="played-card" *ngFor="let card of game.playedCard" src="/assets/img/cards/{{ card }}.png" alt=""
+      srcset="">
+
+    <!-- Current card (Animation) -->
     <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pick-card" style="right: 25px;"
       src="/assets/img/cards/{{ currentCard }}.png" alt="">
+
+
   </div>
 </div>

@@ -24,9 +24,11 @@ export class GameComponent implements OnInit {
     if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop(); // Pop gibt uns den letzten Wert des Arrays entfernt und angezeigt
       this.pickCardAnimation = true;
+
       setTimeout(() => {
         this.pickCardAnimation = false;
-      }, 1500);
+        this.game.playedCard.push(this.currentCard);
+      }, 1000);
     }
   }
 }
