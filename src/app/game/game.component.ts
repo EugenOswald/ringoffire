@@ -10,6 +10,7 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 })
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
+  enoughPlayers = false;
   currentCard: string = '';
   game: Game;
 
@@ -25,22 +26,33 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop(); // Pop gibt uns den letzten Wert des Arrays entfernt und angezeigt
-      this.pickCardAnimation = true;
+    if (this.enoughPlayers) {
+      if (!this.pickCardAnimation) {
+        this.currentCard = this.game.stack.pop(); // Pop gibt uns den letzten Wert des Arrays entfernt und angezeigt
+        this.pickCardAnimation = true;
 
-      setTimeout(() => {
-        this.pickCardAnimation = false;
-        this.game.playedCard.push(this.currentCard);
-      }, 1000);
-    }
+        this.game.currentPlayer++;
+        this.game.currentPlayer =
+          this.game.currentPlayer % this.game.players.length;
+        setTimeout(() => {
+          this.pickCardAnimation = false;
+          this.game.playedCard.push(this.currentCard);
+        }, 1000);
+      }
+    } else {this.openDialog();}
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name: string) => {
-      this.game.players.push(name);
+      if (name && name.length == 0) {
+        console.log('test');
+        this.game.players.push(name);
+        if (name.length > 2) {
+          this.enoughPlayers = true;
+        }
+      }
     });
   }
 }
