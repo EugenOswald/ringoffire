@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  background-image: url("/assets/img/board.png");
+  background-image: url("./../../assets/img/board.png");
 }
 
 .card-stack {
@@ -24,7 +24,7 @@
   }
 }
 
-.played-card{
+.played-card {
   right: 25px;
   transform: scale(1) translateX(300px) translateY(-300px) rotate(5deg);
 }
@@ -49,18 +49,18 @@
   }
 }
 
-.player-position{
+.player-position {
   position: absolute;
   right: 0;
 }
 
-.btn-add{
+.btn-add {
   position: absolute;
   right: 32px;
   bottom: 32px;
 }
 
-.pin-bottom{
+.pin-bottom {
   position: absolute;
   bottom: 32px;
   left: 300px;
