@@ -12,9 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
-  enoughPlayers = false;
+  enoughPlayers: number = 1;
   currentCard: string = '';
   game: Game;
+  gameId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,12 +26,10 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.newGame();
     this.route.params.subscribe((params) => {
-      console.log(params['id']);
-
-
+      this.gameId = params['id'];
       this.firestore
         .collection('games')
-        .doc(params['id'])
+        .doc(this.gameId)
         .valueChanges()
         .subscribe((game: any) => {
           console.log('Game update', game);
@@ -51,6 +50,7 @@ export class GameComponent implements OnInit {
       if (!this.pickCardAnimation) {
         this.currentCard = this.game.stack.pop(); // Pop gibt uns den letzten Wert des Arrays entfernt und angezeigt
         this.pickCardAnimation = true;
+        this.saveGame();
 
         this.game.currentPlayer++;
         this.game.currentPlayer =
@@ -58,6 +58,7 @@ export class GameComponent implements OnInit {
         setTimeout(() => {
           this.pickCardAnimation = false;
           this.game.playedCard.push(this.currentCard);
+           this.saveGame();
         }, 1000);
       }
     } else {
@@ -70,13 +71,19 @@ export class GameComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
+        this.enoughPlayers++;
+        this.saveGame();
         this.game.players.push(name);
-        if (name.length > 2) {
-          this.enoughPlayers = true;
-        } else {
-          this.enoughPlayers = false;
-        };
+        if (this.enoughPlayers > 1) {
+        }
       }
     });
+  }
+
+  saveGame() {
+    this.firestore
+      .collection('games')
+      .doc(this.gameId)
+      .update(this.game.toJson());
   }
 }
