@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from '../../models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -14,15 +16,34 @@ export class GameComponent implements OnInit {
   currentCard: string = '';
   game: Game;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    private route: ActivatedRoute,
+    private firestore: AngularFirestore,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.newGame();
+    this.route.params.subscribe((params) => {
+      console.log(params['id']);
+
+
+      this.firestore
+        .collection('games')
+        .doc(params['id'])
+        .valueChanges()
+        .subscribe((game: any) => {
+          console.log('Game update', game);
+          this.game.currentPlayer = game.currentPlayer;
+          this.game.playedCard = game.playedCard;
+          this.game.players = game.players;
+          this.game.stack = game.stack;
+        });
+    });
   }
 
   newGame() {
     this.game = new Game(); // die Variabel bekommt ein neues von dem, was wir angelegt haben.
-    console.log(this.game);
   }
 
   takeCard() {
@@ -39,7 +60,9 @@ export class GameComponent implements OnInit {
           this.game.playedCard.push(this.currentCard);
         }, 1000);
       }
-    } else {this.openDialog();}
+    } else {
+      this.openDialog();
+    }
   }
 
   openDialog(): void {
@@ -50,7 +73,9 @@ export class GameComponent implements OnInit {
         this.game.players.push(name);
         if (name.length > 2) {
           this.enoughPlayers = true;
-        }
+        } else {
+          this.enoughPlayers = false;
+        };
       }
     });
   }
