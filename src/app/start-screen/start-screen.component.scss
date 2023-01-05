@@ -1,4 +1,4 @@
-.start-screen{
+.start-screen {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,27 +6,46 @@
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  img{
+
+  img {
     height: 100vh;
   }
 }
 
-.start-label-box{
+.start-label-box {
   position: absolute;
   display: flex;
   justify-content: center;
   z-index: 1;
   left: 0;
   right: 0;
-  bottom: 140px;
-  img{
-    width: 20vw;
+  bottom: 120px;
+  img {
+    width: 300px;
     height: auto;
     cursor: pointer;
 
-    &:hover{
-      filter:brightness(1.25);
+    &:hover {
+      filter: brightness(1.25);
     }
   }
+}
 
+@media (max-width: 960px) {
+  .start-screen {
+    overflow: hidden;
+  }
+  img {
+    width: 100%;
+    object-fit: contain;
+    height: 100vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .start-label-box {
+    img {
+      width: 70vw;
+    }
+  }
 }

@@ -5,6 +5,9 @@
   width: 300px;
   border-top-left-radius: 45px;
   border-bottom-left-radius: 45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   span{
     font-size: 32px;
     margin-left: 16px;

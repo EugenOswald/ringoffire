@@ -1,20 +1,24 @@
-<app-player *ngFor="let player of game.players; let i = index" [ngStyle]="{'top.px': 100 + (i*80)}" [name]="player" [playerActive]="i == game.currentPlayer"
-  class="player-position"></app-player>
+<app-player *ngFor="let player of game.players; let i = index" [ngStyle]="{'top.px': 100 + (i*80)}" [name]="player"
+  [playerActive]="i == game.currentPlayer" class="player-position hide-mobile"></app-player>
 
+<div class="scroll-container hide-desktop">
+  <app-player-mobile *ngFor="let player of game.players; let i = index;" [name]="player"
+    [playerActive]="i == game.currentPlayer"></app-player-mobile>
+</div>
 
-<div class="field" >
+<div class="field">
 
   <div class="card-stack">
     <!-- Card stack -->
-    <img [ngStyle]="{'right.px': i*5}" *ngFor="let c of [0,1,2,3]; let i = index;"
-      src="assets/img/cards/card_cover.png" alt="">
+    <img [ngStyle]="{'right.px': i*5}" *ngFor="let c of [0,1,2,3]; let i = index;" src="assets/img/cards/card_cover.png"
+      alt="">
     <!--Mit *ngFor="let c of [1,2,3,4,5]" wird dieses Bild 5mal dargestellt-->
     <!--Mit [ngStyle]="{'right.px': i*5}" bekommt jedes img sein eigenes Style right in px, es wäre möglich auch andere einheiten zunutzen-->
     <img (click)="takeCard()" class="top-card" style="right: 25px;" src="assets/img/cards/card_cover.png" alt="">
 
 
     <!-- Stack for played Cards -->
-    <img class="played-card"  *ngFor="let card of game.playedCard" src="assets/img/cards/{{ card }}.png" alt=""
+    <img class="played-card" *ngFor="let card of game.playedCard" src="assets/img/cards/{{ card }}.png" alt=""
       srcset="">
 
     <!-- Current card (Animation) -->
