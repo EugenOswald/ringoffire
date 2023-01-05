@@ -11,6 +11,8 @@
   <img src="./assets/img/game_over.png">
 </div>
 
+
+
 <div *ngIf="!gameOver" class="field">
 
   <div class="card-stack">
@@ -39,3 +41,4 @@
 <button *ngIf="!gameOver" (click)="openDialog()" mat-fab color="primary" class="btn-add">
   <mat-icon>add</mat-icon>
 </button>
+<img class="preloadImage" src="assets/img/cards/{{ game.stack[game.stack.length -1] }}.png" alt="">
