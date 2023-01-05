@@ -11,9 +11,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
-  pickCardAnimation = false;
-  enoughPlayers: number = 1;
-  currentCard: string = '';
   game: Game;
   gameId: string;
 
@@ -37,6 +34,8 @@ export class GameComponent implements OnInit {
           this.game.playedCard = game.playedCard;
           this.game.players = game.players;
           this.game.stack = game.stack;
+          this.game.pickCardAnimation = game.pickCardAnimation;
+          this.game.currentCard = game.currentCard;
         });
     });
   }
@@ -46,19 +45,19 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (this.enoughPlayers) {
-      if (!this.pickCardAnimation) {
-        this.currentCard = this.game.stack.pop(); // Pop gibt uns den letzten Wert des Arrays entfernt und angezeigt
-        this.pickCardAnimation = true;
-        this.saveGame();
+    if (this.game.players.length >= 1) {
+      if (!this.game.pickCardAnimation) {
+        this.game.currentCard = this.game.stack.pop(); // Pop gibt uns den letzten Wert des Arrays entfernt und angezeigt
+        this.game.pickCardAnimation = true;
 
         this.game.currentPlayer++;
         this.game.currentPlayer =
-          this.game.currentPlayer % this.game.players.length;
+        this.game.currentPlayer % this.game.players.length;
+        this.saveGame();
         setTimeout(() => {
-          this.pickCardAnimation = false;
-          this.game.playedCard.push(this.currentCard);
-           this.saveGame();
+          this.game.pickCardAnimation = false;
+          this.game.playedCard.push(this.game.currentCard);
+          this.saveGame();
         }, 1000);
       }
     } else {
@@ -71,11 +70,8 @@ export class GameComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
-        this.enoughPlayers++;
-        this.saveGame();
         this.game.players.push(name);
-        if (this.enoughPlayers > 1) {
-        }
+        this.saveGame();
       }
     });
   }
