@@ -87,10 +87,27 @@ app-player-mobile {
   cursor: pointer;
 
   &:hover {
-    filter: brightness(1.15);
+    filter: brightness(1.1);
   }
 }
 
+.gameOver {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  img {
+    width: 300px;
+  }
+}
+
+.preloadImage {
+  opacity: 0;
+  height: 0px;
+  width: 0px;
+  z-index: -9999999;
+}
 @media (max-width: 900px) {
   .pin-bottom {
     left: 0;
@@ -132,10 +149,9 @@ app-player-mobile {
       transform: scale(1) translateX(125px) translateY(-169px) rotate(5deg);
     }
   }
-.btn-add {
-  position: absolute;
-  right: 20px;
-  bottom: 130px;
-}
-
+  .btn-add {
+    position: absolute;
+    right: 20px;
+    bottom: 130px;
+  }
 }

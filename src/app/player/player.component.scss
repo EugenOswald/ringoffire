@@ -1,4 +1,4 @@
-.player{
+.player {
   display: flex;
   align-items: center;
   background-color: rgba(160, 156, 149, 0.575);
@@ -6,19 +6,21 @@
   border-top-left-radius: 45px;
   border-bottom-left-radius: 45px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  span{
-    font-size: 32px;
+
+  span {
+    font-size: 24px;
     margin-left: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  img{
-    width: 70px;
-    height: 70px;
+  img {
+    width: 60px;
+    height: 60px;
     object-fit: cover;
   }
 }
 
-.player-active{
+.player-active {
   background-color: orange !important;
 }

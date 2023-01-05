@@ -6,9 +6,11 @@
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
   span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 14px;
     padding-top: 10px;
   }
