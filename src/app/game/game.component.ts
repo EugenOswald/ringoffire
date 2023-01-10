@@ -89,7 +89,7 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
-        this.game.player_images.push('player.png');
+        this.game.player_images.push('editMe.png');
         this.saveGame();
       }
     });
